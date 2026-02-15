@@ -76,10 +76,10 @@
             if(name && msg) {
                 await push(ref(db, 'messages'), {
                     text: `[INQUIRY FROM ${name}]: ${msg}`,
-                    senderId: "visitor",
-                    senderEmail: "Visitor",
+                    senderId:'anon-'+ new
+Date().getTime()`.
+                    senderEmail: .Visitor .value
                     timestamp: serverTimestamp()
-                });
                 alert("Message sent! I will check it in my dashboard.");
                 closeContact();
                 document.getElementById('visitorName').value = '';
