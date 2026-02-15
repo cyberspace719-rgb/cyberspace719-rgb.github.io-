@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Josh Intake</title>
+    <style>
+        /* Reusing Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #02040a; color: white; display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { width: 260px; background: #0f172a; border-right: 1px solid #1e293b; display: flex; flex-direction: column; padding: 20px; }
+        .brand { font-size: 1.4rem; font-weight: bold; margin-bottom: 40px; color: white; }
+        .brand span { color: #06b6d4; }
+        .menu-item { padding: 12px 15px; margin-bottom: 5px; color: #94a3b8; cursor: pointer; border-radius: 8px; transition: 0.3s; display: flex; gap: 10px; }
+        .menu-item:hover { background: #1e293b; color: white; }
+        .menu-item.active { background: #1e293b; color: white; border-left: 3px solid #06b6d4; }
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        
+        /* Project Grid */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
+        
+        .project-card {
+            background: #0f172a; border: 1px solid #1e293b; border-radius: 12px;
+            overflow: hidden; transition: 0.3s;
+        }
+        .project-card:hover { transform: translateY(-5px); border-color: #06b6d4; }
+        
+        .card-header { height: 120px; background: linear-gradient(135deg, #1e293b, #0f172a); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        
+        .card-body { padding: 20px; }
+        .card-body h3 { margin-bottom: 10px; color: white; }
+        .card-body p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px; }
+        
+        .tags { display: flex; gap: 10px; }
+        .tag { padding: 5px 10px; background: #1e293b; border-radius: 15px; font-size: 0.75rem; color: #06b6d4; }
+        
+        .btn-new { padding: 10px 20px; background: #f59e0b; border: none; border-radius: 5px; color: white; cursor: pointer; float: right; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; height: auto; }
+            .sidebar { width: 100%; overflow-x: auto; flex-direction: row; padding: 10px; }
+            .brand { display: none; }
+            .main-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand">Josh <span>Intake</span></div>
+        <div class="menu-item" onclick="window.location.href='dashboard.html'">📊 Dashboard</div>
+        <div class="menu-item active">🚀 Projects</div>
+        <div class="menu-item" onclick="alert('Clients page coming soon!')">👥 Clients</div>
+        <div class="menu-item" onclick="window.location.href='settings.html'">⚙️ Settings</div>
+        <div class="menu-item" style="margin-top: auto; color: #f87171;" onclick="window.location.href='index.html'">🚪 Log Out</div>
+    </div>
+
+    <div class="main-content">
+        <button class="btn-new" onclick="alert('Create Project Modal would open here')">+ New Project</button>
+        <h1>My Projects</h1>
+
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="card-header">🛒</div>
+                <div class="card-body">
+                    <h3>E-Commerce Store</h3>
+                    <p>A full-stack online store for Nike shoes with payment integration.</p>
+                    <div class="tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-header">📱</div>
+                <div class="card-body">
+                    <h3>Chat Application</h3>
+                    <p>Real-time messaging app similar to WhatsApp using Firebase.</p>
+                    <div class="tags">
+                        <span class="tag">JS</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
