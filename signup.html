@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Josh Intake</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #02040a; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        .container {
+            position: relative; width: 900px; height: 600px; 
+            background: #0f172a; 
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+            border-radius: 20px; overflow: hidden; display: flex; border: 1px solid #1e293b;
+        }
+
+        .login-section { width: 50%; padding: 50px; display: flex; flex-direction: column; justify-content: center; color: white; }
+        .login-section h2 { font-size: 2rem; margin-bottom: 10px; font-weight: 700; color: white; }
+        .login-section p.subtitle { color: #94a3b8; margin-bottom: 30px; font-size: 0.9rem; }
+
+        .input-group { position: relative; margin-bottom: 20px; }
+        .input-group input {
+            width: 100%; padding: 12px 15px; font-size: 1rem; color: #fff; 
+            border: 1px solid #334155; border-radius: 8px; background: #1e293b; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: #f59e0b; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
+        
+        .input-group label {
+            position: absolute; top: 13px; left: 15px; font-size: 0.9rem; color: #94a3b8; 
+            pointer-events: none; transition: 0.3s; background: #1e293b; padding: 0 5px;
+        }
+        .input-group input:focus ~ label, .input-group input:valid ~ label { top: -10px; font-size: 0.8rem; color: #f59e0b; }
+
+        .btn-login {
+            width: 100%; padding: 14px; background: #f59e0b; 
+            border: none; border-radius: 8px; color: white; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: 0.2s; margin-bottom: 15px;
+        }
+        .btn-login:hover { background: #d97706; }
+        
+        .signup-link { margin-top: 25px; font-size: 0.9rem; color: #94a3b8; text-align: center; }
+        .signup-link a { color: #f59e0b; text-decoration: none; font-weight: 600; }
+
+        .welcome-section {
+            width: 50%; height: 100%;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            position: relative; display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center; padding: 40px; color: white;
+            overflow: hidden;
+        }
+        
+        .circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.1); }
+        .c1 { width: 300px; height: 300px; top: -50px; right: -50px; }
+        .c2 { width: 200px; height: 200px; bottom: -20px; left: -20px; }
+        .welcome-section h1 { font-size: 2.5rem; margin-bottom: 15px; z-index: 2; }
+        .welcome-section p { font-size: 1.1rem; opacity: 0.9; z-index: 2; max-width: 300px; }
+
+        @media (max-width: 768px) {
+            .container { width: 95%; height: auto; flex-direction: column; }
+            .welcome-section { display: none; }
+            .login-section { width: 100%; padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="login-section">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join Josh Intake and start building today.</p>
+            
+            <form id="signupForm">
+                <div class="input-group">
+                    <input type="email" id="email" required>
+                    <label>Email Address</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label>Create Password</label>
+                </div>
+                
+                <button type="submit" class="btn-login" id="signupBtn">Create Account</button>
+                
+                <p class="signup-link">Already have an account? <a href="login.html">Log In</a></p>
+            </form>
+        </div>
+
+        <div class="welcome-section">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+            <h1>Join the Team</h1>
+            <p>Experience the power of professional web development tools.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAiK7MfkCK21BVJ2KOHhCYwVrx82Q2bg78",
+            authDomain: "josh-intake.firebaseapp.com",
+            projectId: "josh-intake",
+            storageBucket: "josh-intake.firebasestorage.app",
+            messagingSenderId: "339460724072",
+            appId: "1:339460724072:web:709c71921e8ac64d3ef2dd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('signupBtn');
+            const originalText = btn.innerText;
+
+            btn.innerText = "Creating Account...";
+            btn.style.opacity = "0.7";
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                alert("Account Created Successfully! Redirecting to login...");
+                window.location.href = "login.html";
+            } catch (error) {
+                alert("Error: " + error.message);
+                btn.innerText = originalText;
+                btn.style.opacity = "1";
+            }
+        });
+    </script>
+</body>
+</html>
