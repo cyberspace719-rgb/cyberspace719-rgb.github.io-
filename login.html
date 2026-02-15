@@ -5,184 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Josh Intake</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        body {
-            /* Dark Background */
-            background-color: #02040a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        /* The Main Card Container */
+        /* --- COPY OF PREVIOUS CSS (Keep it the same) --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #02040a; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
         .container {
-            position: relative;
-            width: 850px;
-            height: 500px;
-            background: #0f172a;
-            box-shadow: 0 0 30px rgba(6, 182, 212, 0.4); /* Glowing Cyan Shadow */
-            border-radius: 15px;
-            overflow: hidden;
-            display: flex;
+            position: relative; width: 900px; height: 550px; background: #0f172a; 
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.2); border-radius: 20px; overflow: hidden; display: flex; border: 1px solid #1e293b;
         }
 
-        /* Glowing Border Effect */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, #06b6d4, #000000, #06b6d4);
-            z-index: -1;
-            border-radius: 15px;
-            filter: blur(10px);
-        }
+        .login-section { width: 50%; padding: 50px; display: flex; flex-direction: column; justify-content: center; color: white; }
+        .login-section h2 { font-size: 2rem; margin-bottom: 10px; font-weight: 700; color: white; }
+        .login-section p.subtitle { color: #94a3b8; margin-bottom: 30px; font-size: 0.9rem; }
 
-        /* --- LEFT SIDE (LOGIN FORM) --- */
-        .login-section {
-            width: 55%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
-            z-index: 2; 
-        }
-
-        .login-section h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
+        .input-group { position: relative; margin-bottom: 20px; }
         .input-group input {
-            width: 100%;
-            padding: 10px 0;
-            font-size: 1rem;
-            color: #fff;
-            border: none;
-            border-bottom: 2px solid #334155;
-            background: transparent;
-            outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 12px 15px; font-size: 1rem; color: #fff; 
+            border: 1px solid #334155; border-radius: 8px; background: #1e293b; outline: none; transition: 0.3s;
         }
-
+        .input-group input:focus { border-color: #06b6d4; box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2); }
         .input-group label {
-            position: absolute;
-            top: 10px;
-            left: 0;
-            font-size: 1rem;
-            color: #94a3b8;
-            pointer-events: none;
-            transition: 0.3s;
+            position: absolute; top: 13px; left: 15px; font-size: 0.9rem; color: #94a3b8; 
+            pointer-events: none; transition: 0.3s; background: #1e293b; padding: 0 5px;
         }
+        .input-group input:focus ~ label, .input-group input:valid ~ label { top: -10px; font-size: 0.8rem; color: #06b6d4; }
 
-        /* Input Animation */
-        .input-group input:focus ~ label,
-        .input-group input:valid ~ label {
-            top: -20px;
-            font-size: 0.8rem;
-            color: #06b6d4;
-        }
-
-        .input-group input:focus {
-            border-bottom: 2px solid #06b6d4;
-        }
-
-        /* The Button */
         .btn-login {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(90deg, #0891b2, #06b6d4);
-            border: none;
-            border-radius: 25px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
-            transition: 0.3s;
+            width: 100%; padding: 14px; background: #06b6d4; border: none; border-radius: 8px; 
+            color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; margin-bottom: 15px;
         }
+        .btn-login:hover { background: #0891b2; }
+        .btn-login.loading { opacity: 0.7; cursor: wait; }
 
-        .btn-login:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
-        }
+        .signup-link { margin-top: 25px; font-size: 0.9rem; color: #94a3b8; text-align: center; }
+        .signup-link a { color: #06b6d4; text-decoration: none; font-weight: 600; }
 
-        .signup-link {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-
-        .signup-link a {
-            color: #06b6d4;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* --- RIGHT SIDE (WELCOME MESSAGE) --- */
         .welcome-section {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 55%;
-            height: 100%;
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-end;
-            text-align: right;
-            padding-right: 50px;
-            padding-left: 100px;
-            color: white;
-        }
-
-        .welcome-section h1 {
-            font-size: 2.5rem;
-            line-height: 1.2;
-            margin-bottom: 15px;
+            width: 50%; height: 100%; background: linear-gradient(135deg, #0e7490, #0891b2);
+            position: relative; display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center; padding: 40px; color: white; overflow: hidden;
         }
         
-        .welcome-section h1 span {
-            color: #cffafe; /* Lighter Cyan */
-        }
+        .circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.1); }
+        .c1 { width: 300px; height: 300px; top: -50px; right: -50px; }
+        .c2 { width: 200px; height: 200px; bottom: -20px; left: -20px; }
+        .welcome-section h1 { font-size: 2.5rem; margin-bottom: 15px; z-index: 2; }
+        .welcome-section p { font-size: 1.1rem; opacity: 0.9; z-index: 2; max-width: 300px; }
 
-        .welcome-section p {
-            font-size: 1rem;
-            color: #ecfeff;
-            max-width: 300px;
-            opacity: 0.9;
-        }
-
-        /* Responsive Mobile View */
         @media (max-width: 768px) {
-            .container {
-                width: 90%;
-                height: auto;
-                flex-direction: column;
-            }
-            
-            .welcome-section {
-                display: none; 
-            }
-
-            .login-section {
-                width: 100%;
-            }
+            .container { width: 95%; height: auto; flex-direction: column; }
+            .welcome-section { display: none; }
+            .login-section { width: 100%; padding: 30px; }
         }
     </style>
 </head>
@@ -190,26 +63,62 @@
 
     <div class="container">
         <div class="login-section">
-            <h2>Login</h2>
-            <form>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Enter your details to access the dashboard.</p>
+            
+            <form id="loginForm">
                 <div class="input-group">
-                    <input type="text" required>
-                    <label>Username</label>
+                    <input type="text" id="email" required>
+                    <label>Username or Email</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" required>
+                    <input type="password" id="password" required>
                     <label>Password</label>
                 </div>
-                <button type="button" class="btn-login">Login</button>
-                <p class="signup-link">Don't have an account? <a href="#">Sign up</a></p>
+                
+                <button type="submit" class="btn-login" id="loginBtn">Sign In</button>
+                
+                <p class="signup-link">Don't have an account? <a href="signup.html">Sign up for free</a></p>
             </form>
         </div>
 
         <div class="welcome-section">
-            <h1>WELCOME<br>BACK TO<br><span>JOSH INTAKE!</span></h1>
-            <p>Access your dashboard to manage your web projects and software designs.</p>
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+            <h1>Josh Intake</h1>
+            <p>Secure access to your project management tools.</p>
         </div>
     </div>
 
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop page refresh
+            
+            const btn = document.getElementById('loginBtn');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simple validation simulation
+            if(email && password) {
+                // 1. Change button to loading state
+                const originalText = btn.innerText;
+                btn.innerText = "Verifying Credentials...";
+                btn.style.backgroundColor = "#475569"; // Grey out button
+                btn.style.cursor = "wait";
+                
+                // 2. Wait 2 seconds (simulating server check)
+                setTimeout(function() {
+                    btn.innerText = "Login Successful!";
+                    btn.style.backgroundColor = "#22c55e"; // Green for success
+                    
+                    // 3. Redirect to Dashboard (Simulated)
+                    setTimeout(function() {
+                        window.location.href = 'dashboard.html'; // We need to create this file next!
+                    }, 1000);
+                    
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 </html>
