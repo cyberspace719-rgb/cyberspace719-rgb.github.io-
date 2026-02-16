@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Josh Intake | Professional Command Center</title>
     <style>
+        /* --- CORE STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; }
         body { background-color: #02040a; color: white; line-height: 1.6; overflow-x: hidden; }
         
@@ -94,7 +95,7 @@
             }
         };
 
-        // --- SEND MESSAGE LOGIC ---
+        // --- SEND MESSAGE LOGIC (FIXED) ---
         document.getElementById('sendVisitBtn').onclick = async () => {
             const nameInput = document.getElementById('visitorName');
             const msgInput = document.getElementById('visitorMsg');
